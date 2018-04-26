@@ -22,3 +22,12 @@ In command prompt:
 1. cd to/project/folder/animal-shelter-backend
 2. workon AnimalShelter
 3. python app.py 
+
+
+#Angular frontend
+
+In command prompt:
+
+1. npm install -g @angular/cli
+2. cd to/project/folder/animal-shelter-ui
+3. ng serve
