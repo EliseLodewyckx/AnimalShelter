@@ -26,8 +26,11 @@ In command prompt:
 
 #Angular frontend
 
-In command prompt:
+## Setup
+1. Install NodeJs
+2. Open command prompt in user-folder and run: npm install -g @angular/cli
 
-1. npm install -g @angular/cli
-2. cd to/project/folder/animal-shelter-ui
-3. ng serve
+## Running project
+In command prompt:
+1. cd to/project/folder/animal-shelter-ui
+2. ng serve
