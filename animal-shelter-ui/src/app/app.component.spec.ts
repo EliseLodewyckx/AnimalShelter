@@ -1,32 +1,35 @@
 import { TestBed, async } from '@angular/core/testing';
-
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import { Response, ResponseOptions } from '@angular/http';
 import { AppComponent } from './app.component';
+
+let component: AppComponent;
+let animalService;
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+    animalService = jasmine.createSpyObj('AnimalService', ['makePrediction']);
+    component = new AppComponent(animalService);
   }));
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it(`.predict should call AnimalService`, async(() => {
+    const options = new ResponseOptions({
+      body: '{"name":"Jeff"}'
+    });
+    const res = new Response(options);
+    animalService.makePrediction.and.returnValue(Observable.of(res));
+    component.predict();
+    expect(animalService.makePrediction).toHaveBeenCalled();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
+  it('.predictionNotUndefined should return false when prediction undefined', async(() => {
+    component.prediction = undefined;
+    expect(component.predictionNotUndefined()).toBe(false);
   }));
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
+  it('.predictionNotUndefined should return true when prediction not undefined', async(() => {
+    component.prediction = 5;
+    expect(component.predictionNotUndefined()).toBe(true);
   }));
 });

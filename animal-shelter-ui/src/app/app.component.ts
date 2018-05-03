@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { UserService } from './services/user.service';
 import { AnimalService } from './services/animal-shelter.service';
-import { FeaturesAnimal } from './models/features-animal';
 
 
 @Component({
@@ -29,15 +27,8 @@ export class AppComponent {
   title = 'Animal Shelter';
   users;
   prediction: Number;
-  featuresAnimal: FeaturesAnimal;
 
-  constructor(private userService: UserService,
-    private animalShelterService: AnimalService) {
-    this.users = userService.getUsers();
-    this.featuresAnimal = {
-      feature1: 2,
-      feature2: 1
-    };
+  constructor(private animalShelterService: AnimalService) {
   }
 
   predict() {

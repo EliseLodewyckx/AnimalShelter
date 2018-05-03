@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Prediction } from '../models/animal-prediction';
-import { FeaturesAnimal } from '../models/features-animal';
+
 
 @Injectable()
 export class AnimalService {

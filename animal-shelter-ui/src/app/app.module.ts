@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-import {UserService} from './services/user.service';
 import {AnimalService} from './services/animal-shelter.service';
 
 
@@ -16,7 +15,7 @@ import {AnimalService} from './services/animal-shelter.service';
     FormsModule,
     HttpModule
   ],
-  providers: [UserService, AnimalService],
+  providers: [AnimalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
