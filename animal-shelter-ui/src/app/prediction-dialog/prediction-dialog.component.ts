@@ -18,7 +18,7 @@ export class PredictionDialog {
     return new Map<Prediction, string>([
       [Prediction.Adoption, 'accessibility_new'],
       [Prediction.Died, 'cloud_queue'],
-      [Prediction.Euthanasia, 'toggle_off'],
+      [Prediction.Euthanasia, 'trending_down'],
       [Prediction.ReturnToOwner, '360'],
       [Prediction.Transfer, 'directions_bus']]).get(prediction);
   }

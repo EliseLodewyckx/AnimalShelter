@@ -37,8 +37,7 @@ export class AppComponent {
     console.log(prediction);
     this.loading = false;
     let dialogRef = this.dialog.open(PredictionDialog, {
-      height: '200px',
-      width: '250px',
+      width: '400px',
       data: prediction
     })
     dialogRef.afterClosed().subscribe(result => result);
