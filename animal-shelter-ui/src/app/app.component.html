@@ -1,0 +1,12 @@
+<h1>Animal Shelter</h1>
+
+<div>
+  <button
+  (click)=predict()>
+    Make prediction
+  </button>
+</div>
+
+<div *ngIf=predictionNotUndefined()>
+  The prediction is: {{prediction}}
+</div>
