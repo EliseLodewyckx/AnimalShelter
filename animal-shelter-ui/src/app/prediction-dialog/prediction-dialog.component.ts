@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { Prediction } from '../services/prediction';
 
 @Component({
@@ -11,9 +12,18 @@ export class PredictionDialog {
 
   constructor(
     public dialogRef: MatDialogRef<PredictionDialog>,
-    @Inject(MAT_DIALOG_DATA) public prediction: Prediction) {}
+    @Inject(MAT_DIALOG_DATA) public prediction: Prediction) { }
 
-  onNoClick(): void {
+  mapToIcon(prediction) {
+    return new Map<Prediction, string>([
+      [Prediction.Adoption, 'accessibility_new'],
+      [Prediction.Died, 'cloud_queue'],
+      [Prediction.Euthanasia, 'toggle_off'],
+      [Prediction.ReturnToOwner, '360'],
+      [Prediction.Transfer, 'directions_bus']]).get(prediction);
+  }
+
+  close() {
     this.dialogRef.close();
   }
 }

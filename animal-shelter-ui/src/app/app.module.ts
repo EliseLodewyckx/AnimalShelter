@@ -9,6 +9,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app.component';
 import { AnimalService } from './services/animal-shelter.service';
@@ -29,7 +30,8 @@ import { PredictionDialog } from './prediction-dialog/prediction-dialog.componen
     MatSliderModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   entryComponents: [
     PredictionDialog
