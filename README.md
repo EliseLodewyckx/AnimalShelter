@@ -28,7 +28,8 @@ In command prompt:
 
 ## Setup
 1. Install NodeJs
-2. Open command prompt in user-folder and run: npm install -g @angular/cli
+2. Open command prompt in user-folder and run: ````npm install````
+3. Run ````npm start````
 
 ## Running project
 In command prompt:

@@ -1,12 +1,49 @@
 <h1>Animal Shelter</h1>
 
-<div>
-  <button
-  (click)=predict()>
+<form (ngSubmit)="predictFor(animal)" class="mat-elevation-z8">
+
+  <mat-form-field>
+      <mat-select placeholder="Animal type" [(value)]="animal.animalType">
+        <mat-option value="Cat">Cat</mat-option>
+        <mat-option value="Dog">Dog</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select placeholder="Gender" [(value)]="animal.sex">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <section>
+    <mat-checkbox [(ngModel)]="animal.intact" name="intact">
+      Intact
+    </mat-checkbox>
+  </section>
+
+  <section>
+    <label>Age</label>
+    <mat-slider
+      name="age"
+      [max]="20"
+      [min]="0"
+      [step]="0.1"
+      [tickInterval]="0.1"
+      [thumbLabel]="true"
+      [(ngModel)]="animal.age">
+    </mat-slider>
+  </section>
+
+  <button mat-raised-button
+    type="submit"
+    color="primary"
+    *ngIf="!loading">
     Make prediction
   </button>
-</div>
 
-<div *ngIf=predictionNotUndefined()>
-  The prediction is: {{prediction}}
-</div>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="loading">
+  </mat-progress-bar>
+</form>

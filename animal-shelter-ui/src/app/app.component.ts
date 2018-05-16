@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import { Animal, AnimalType, Sex } from './services/animal';
 import { AnimalService } from './services/animal-shelter.service';
-import { Animal } from './services/animal';
+import { Prediction } from './services/prediction';
+import { PredictionDialog } from './prediction-dialog/prediction-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +14,38 @@ import { Animal } from './services/animal';
 export class AppComponent {
 
   animal: Animal;
+  loading: boolean;
 
-  constructor(private animalService: AnimalService) {}
+  constructor(
+    private animalService: AnimalService,
+    private dialog: MatDialog) {
+    this.animal = new Animal(AnimalType.Dog, Sex.Male, true, 5);
+    this.loading = false;
+  }
 
-  predict() {
+  predictFor(animal: Animal) {
+    console.log(animal)
+    this.loading = true;
     this.animalService
       .makePrediction(this.animal)
-      .subscribe(response => {
-        // this.prediction = response;
-        console.log('Prediction ' + response);
-      });
+      .subscribe(
+        prediction => this.processPrediction(prediction),
+        error => this.handleError(error));
+  }
+
+  private processPrediction(prediction: Prediction) {
+    console.log(prediction);
+    this.loading = false;
+    let dialogRef = this.dialog.open(PredictionDialog, {
+      height: '200px',
+      width: '250px',
+      data: prediction
+    })
+    dialogRef.afterClosed().subscribe(result => result);
+  }
+
+  private handleError(error: any) {
+    this.loading = false;
+    console.error(error);
   }
 }

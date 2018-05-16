@@ -4,14 +4,25 @@ export class Animal {
   intact: boolean;
   age: number;
   // ...
+
+  constructor(
+    animalType: AnimalType,
+    sex: Sex,
+    intact: boolean,
+    age: number) {
+      this.animalType = animalType;
+      this.sex = sex;
+      this.intact = intact;
+      this.age = age;
+  }
 }
 
 export enum AnimalType {
-  Cat,
-  Dog
+  Cat = 'Cat',
+  Dog = 'Dog'
 }
 
 export enum Sex {
-  Male,
-  Female
+  Male = 'Male',
+  Female = 'Female'
 }
