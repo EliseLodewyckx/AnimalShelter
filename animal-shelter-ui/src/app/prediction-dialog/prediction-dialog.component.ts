@@ -23,6 +23,10 @@ export class PredictionDialog {
       [Prediction.Transfer, 'directions_bus']]).get(prediction);
   }
 
+  removeUnderscores(string: string) {
+    return string.replace(/_/g,' ');
+  }
+
   close() {
     this.dialogRef.close();
   }

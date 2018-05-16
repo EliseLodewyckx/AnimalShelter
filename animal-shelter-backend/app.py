@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
+
 from ml.animal import Animal
 from ml.predictor import Predictor
 
@@ -15,7 +16,7 @@ def predict_animal():
         request.json['age'],
         request.json['mix'])
 
-    return "" + str(Predictor().make_animal_prediction(animal))
+    return Predictor().make_animal_prediction(animal)
 
 
 if __name__ == '__main__':

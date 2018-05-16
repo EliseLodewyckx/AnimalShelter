@@ -2,6 +2,6 @@ export enum Prediction {
   Adoption = 'Adoption',
   Died = 'Died',
   Euthanasia = 'Euthanasia',
-  ReturnToOwner = 'ReturnToOwner',
+  ReturnToOwner = 'Return_to_owner',
   Transfer = 'Transfer'
 }
