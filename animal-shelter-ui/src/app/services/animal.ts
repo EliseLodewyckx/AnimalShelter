@@ -3,17 +3,20 @@ export class Animal {
   sex: Sex;
   intact: boolean;
   age: number;
+  mix: boolean;
   // ...
 
   constructor(
     animalType: AnimalType,
     sex: Sex,
     intact: boolean,
-    age: number) {
+    age: number,
+    mix: boolean) {
       this.animalType = animalType;
       this.sex = sex;
       this.intact = intact;
       this.age = age;
+      this.mix = mix;
   }
 }
 
