@@ -19,7 +19,7 @@ export class AppComponent {
   constructor(
     private animalService: AnimalService,
     private dialog: MatDialog) {
-    this.animal = new Animal(AnimalType.Dog, Sex.Male, true, 5);
+    this.animal = new Animal(AnimalType.Dog, Sex.Male, true, 5, false);
     this.loading = false;
   }
 
