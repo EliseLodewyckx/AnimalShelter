@@ -1,47 +1,25 @@
 import { Component } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { AnimalService } from './services/animal-shelter.service';
 
+import { AnimalService } from './services/animal-shelter.service';
+import { Animal } from './services/animal';
 
 @Component({
   selector: 'app-root',
-  styleUrls: ['./app.component.css'],
-  template: `
-  <h1>
-    {{title}}
-  </h1>
-
-  <div>
-    <button
-    (click) = predict()> Make prediction </button>
-  </div>
-
-  <div *ngIf= predictionNotUndefined()>
-    The prediction is:
-    {{prediction}}
-  </div>
-`,
+  styleUrls: ['./app.component.scss'],
+  templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  title = 'Animal Shelter';
-  users;
-  prediction: Number;
 
-  constructor(private animalShelterService: AnimalService) {
-  }
+  animal: Animal;
+
+  constructor(private animalService: AnimalService) {}
 
   predict() {
-    this.animalShelterService.makePrediction()
+    this.animalService
+      .makePrediction(this.animal)
       .subscribe(response => {
-        this.prediction = response.json();
-        console.log('prediction ' + this.prediction);
+        // this.prediction = response;
+        console.log('Prediction ' + response);
       });
-
-    console.log(this.prediction);
-  }
-
-  predictionNotUndefined() {
-    return this.prediction !== undefined;
   }
 }
