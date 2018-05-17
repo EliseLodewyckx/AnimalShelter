@@ -4,11 +4,6 @@ from ml.animal import Animal
 import os.path
 
 class Predictor(object):
-    def make_prediction(self, instance):
-        print("wut")
-        if (instance.feature1 > instance.feature2):
-            return 1
-        return 0
 
     def make_animal_prediction(self, animal):
         print("Making an animal prediction")

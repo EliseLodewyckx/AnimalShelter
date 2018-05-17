@@ -37,7 +37,7 @@ class Model(object):
 
 
 if __name__ == '__main__':
-	instances = fromCsv.readCsv('../../data/train_preprocessed.csv')
+	instances = fromCsv.readCsv('../../data/train_preprocessed_1_split_mix_and_sex.csv')
 	trainSet, testSet = split(instances, 0.7)
 	modelTrain = ModelTrainer(trainSet)
 	model = modelTrain.train()

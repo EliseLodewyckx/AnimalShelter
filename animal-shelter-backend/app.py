@@ -18,6 +18,5 @@ def predict_animal():
 
     return Predictor().make_animal_prediction(animal)
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
