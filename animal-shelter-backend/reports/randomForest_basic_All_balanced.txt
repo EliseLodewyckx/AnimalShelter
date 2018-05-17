@@ -1,0 +1,17 @@
+                 precision    recall  f1-score   support
+
+       Adoption       0.73      0.65      0.69      3233
+           Died       0.03      0.34      0.05        61
+     Euthanasia       0.23      0.34      0.28       484
+Return_to_owner       0.37      0.58      0.45      1439
+       Transfer       0.76      0.41      0.53      2802
+
+    avg / total       0.64      0.53      0.56      8019
+
+accuracy: 0.5297418630751964
+confusion matrix:
+[[2092  100   54  822  165]
+ [   4   21    5    3   28]
+ [  24   91  163  126   80]
+ [ 282   76  171  831   79]
+ [ 449  444  308  460 1141]]

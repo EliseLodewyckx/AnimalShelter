@@ -1,0 +1,11 @@
+             precision    recall  f1-score   support
+
+      Alive       0.99      0.32      0.48      7474
+       Dead       0.09      0.97      0.17       545
+
+avg / total       0.93      0.36      0.46      8019
+
+accuracy: 0.3600199526125452
+confusion matrix:
+[[2358 5116]
+ [  16  529]]
