@@ -29,7 +29,7 @@ class Model(object):
 	@classmethod
 	def fromFile(cls, filename):
 		fileHandle = open(filename, 'rb')
-		return Model(pickle.load(fileHandle))
+		return Model(pickle.load(fileHandle), [])
 
 	def predict(self, instance):
 		return self.tree.predict([instance.getExtendedFeatures(self.extendedFeatureList)])[0]

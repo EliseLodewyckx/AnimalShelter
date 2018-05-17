@@ -12,7 +12,7 @@ class Predictor(object):
         else:
             mix = 'FALSE'
 
-        instance = Instance(None, animal.animalType, animal.sex, animal.intact, animal.age, mix)
+        instance = Instance(None, animal.animalType, animal.sex, animal.intact, animal.age, mix, None, None, None, None, None, None)
 
         my_path = os.path.abspath(os.path.dirname(__file__))
         path = os.path.join(my_path, "../models/decisionTree.sav")
