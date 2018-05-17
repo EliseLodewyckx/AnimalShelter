@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Prediction } from '../services/prediction';
+import { TwoClassPrediction } from '../services/two-class-prediction';
 
 @Component({
   selector: 'prediction-dialog',
@@ -12,15 +12,13 @@ export class PredictionDialog {
 
   constructor(
     public dialogRef: MatDialogRef<PredictionDialog>,
-    @Inject(MAT_DIALOG_DATA) public prediction: Prediction) { }
+    @Inject(MAT_DIALOG_DATA) public prediction: TwoClassPrediction) { }
 
   mapToIcon(prediction) {
-    return new Map<Prediction, string>([
-      [Prediction.Adoption, 'accessibility_new'],
-      [Prediction.Died, 'cloud_queue'],
-      [Prediction.Euthanasia, 'trending_down'],
-      [Prediction.ReturnToOwner, '360'],
-      [Prediction.Transfer, 'directions_bus']]).get(prediction);
+    return new Map<TwoClassPrediction, string>([
+      [TwoClassPrediction.Alive, 'accessibility_new'],
+      [TwoClassPrediction.Dead, 'cloud_queue']])
+      .get(prediction);
   }
 
   removeUnderscores(string: string) {
