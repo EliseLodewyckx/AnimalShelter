@@ -1,6 +1,7 @@
 import pickle
 
 from sklearn import tree
+from sklearn import ensemble
 from sklearn import metrics
 
 from datatransformation import fromCsv
@@ -12,10 +13,10 @@ class ModelTrainer(object):
 	def __init__(self, trainData):
 		self.trainData = trainData
 
-	def train(self, classificationWeight, outcomeFunction):
+	def train(self, classifier, outcomeFunction):
 		features = [instance.getFeatures() for instance in self.trainData]
 		outcomes = [outcomeFunction(instance) for instance in self.trainData]
-		treeModel = tree.DecisionTreeClassifier(class_weight=classificationWeight)
+		treeModel = classifier
 		treeModel.fit(features, outcomes)
 		return Model(treeModel)
 
@@ -50,19 +51,21 @@ if __name__ == '__main__':
 
 		nameindex = 0
 		for classificationWeight in classificationFunctionMap[outcomeType[outcomeindex]]:
-			modelTrain = ModelTrainer(trainSet)
-			model = modelTrain.train(classificationWeight, outcomeFunction)
-			trueOutcomes = []
-			predictedOutcomes = []
-			for testInstance in testSet:
-				trueOutcomes.append(outcomeFunction(testInstance))
-				predictedOutcomes.append(model.predict(testInstance))
+			classifiers = {"DecisionTree" : tree.DecisionTreeClassifier(classificationWeight=classificationWeight), "RandomForest": ensemble.RandomForestClassifier(classificationWeight=classificationWeight)}
+			for classifierKey, classifierValue in classifiers:
+				modelTrain = ModelTrainer(trainSet)
+				model = modelTrain.train(classifierValue, outcomeFunction)
+				trueOutcomes = []
+				predictedOutcomes = []
+				for testInstance in testSet:
+					trueOutcomes.append(outcomeFunction(testInstance))
+					predictedOutcomes.append(model.predict(testInstance))
 
-			reportFile = open('../reports/decisionTree_withColorsAndBreeds_' + outcomeType[outcomeindex] + '_' + reportnames[nameindex] + '.txt', 'w')
-			reportFile.write(metrics.classification_report(trueOutcomes, predictedOutcomes) + "\n")
-			reportFile.write("accuracy: " + str(metrics.accuracy_score(trueOutcomes, predictedOutcomes)) + "\n")
-			reportFile.write("confusion matrix:\n" + str(metrics.confusion_matrix(trueOutcomes, predictedOutcomes)))
-			reportFile.close()
+				reportFile = open('../reports/' + classifierKey + '_revisited_' + outcomeType[outcomeindex] + '_' + reportnames[nameindex] + '.txt', 'w')
+				reportFile.write(metrics.classification_report(trueOutcomes, predictedOutcomes) + "\n")
+				reportFile.write("accuracy: " + str(metrics.accuracy_score(trueOutcomes, predictedOutcomes)) + "\n")
+				reportFile.write("confusion matrix:\n" + str(metrics.confusion_matrix(trueOutcomes, predictedOutcomes)))
+				reportFile.close()
 			nameindex += 1
 
 		outcomeindex += 1
