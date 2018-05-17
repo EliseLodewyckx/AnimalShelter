@@ -8,6 +8,7 @@ if __name__ == '__main__':
 	recallList = []
 	accuracyList = []
 	precisionList = []
+	summaryReport = open('../visualisation/summary.txt', 'w')
 	for report in allFiles:
 		if("PosNeg" in report):
 			reportHandle = open('../reports/' + report, 'r')
@@ -18,6 +19,8 @@ if __name__ == '__main__':
 			precisionList.append(precision)
 			recallList.append(recall)
 			accuracyList.append(accuracy)
+			if(recall > 0.6 and accuracy > 0.6 and precision > 0.15):
+				summaryReport.write(str(recall) + " " + str(accuracy) + " " + str(precision) + " " + report + "\n")
 	plt.scatter(recallList, precisionList)
 	plt.ylabel("Precision")
 
