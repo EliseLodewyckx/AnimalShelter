@@ -21,6 +21,5 @@ class Instance(object):
                + ", animalType: " + str(self.animalType) \
                + ", sex: " + str(self.sex) \
                + ", intact: " + str(self.intact) \
-               + ", ageInYears: " \
-               + str(self.ageInYears) \
+               + ", ageInYears: " + str(self.ageInYears) \
                + ", mix: " + str(self.mix) + "}"
