@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Animal, AnimalType, Sex } from './services/animal';
 import { AnimalService } from './services/animal-shelter.service';
-import { Prediction } from './services/prediction';
+import { TwoClassPrediction } from './services/two-class-prediction';
 import { PredictionDialog } from './prediction-dialog/prediction-dialog.component';
 
 @Component({
@@ -29,22 +29,32 @@ export class AppComponent {
     this.animalService
       .makePrediction(this.animal)
       .subscribe(
-        prediction => this.processPrediction(prediction),
-        error => this.handleError(error));
+      prediction => this.processPrediction(prediction),
+      error => this.handleError(error));
   }
 
-  private processPrediction(prediction: Prediction) {
+  private processPrediction(prediction: TwoClassPrediction) {
     console.log(prediction);
+    console.log(this.mapResultToNewLabel(prediction))
     this.loading = false;
     let dialogRef = this.dialog.open(PredictionDialog, {
       width: '400px',
-      data: prediction
+      data: this.mapResultToNewLabel(prediction)
     })
-    dialogRef.afterClosed().subscribe(result => result);
+    dialogRef.afterClosed()
+      .subscribe(result => result);
   }
 
   private handleError(error: any) {
     this.loading = false;
     console.error(error);
+  }
+
+  private mapResultToNewLabel(result) {
+    if (result === "Alive") {
+      return "No attention needed"
+    } else {
+      return "Extra attention required"
+    }
   }
 }

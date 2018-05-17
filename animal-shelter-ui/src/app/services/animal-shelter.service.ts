@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Animal } from './animal';
-import { Prediction } from './prediction';
+import { TwoClassPrediction } from './two-class-prediction';
 
 @Injectable()
 export class AnimalService {
 
     constructor(private http: HttpClient) {}
 
-    makePrediction(animal: Animal): Observable<Prediction> {
-      return this.http.post<Prediction>('http://localhost:5000/predict', animal, { responseType: 'text' as 'json' });
+    makePrediction(animal: Animal): Observable<TwoClassPrediction> {
+      return this.http.post<TwoClassPrediction>('http://localhost:5000/predict', animal, { responseType: 'text' as 'json' });
     }
 }

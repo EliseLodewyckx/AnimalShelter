@@ -1,4 +1,4 @@
 export enum TwoClassPrediction {
-  Alive = 'Alive',
-  Dead = 'Dead'
+  Alive = 'No attention needed',
+  Dead = 'Extra attention required'
 }
