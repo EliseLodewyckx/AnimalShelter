@@ -7,6 +7,7 @@ from sklearn import metrics
 
 from datatransformation import fromCsv
 from ml.datasetSplitter import split
+from ml.classifierParamsProvider import ClassifierParamProvider
 
 
 class ModelTrainer(object):
@@ -44,46 +45,32 @@ class Model(object):
 def generateReports():
     instances = fromCsv.readCsv('../../data/train_preprocessed_split_mix_sex_color_breed.csv')
     trainSet, testSet = split(instances, 0.7)
-    reportnames = ["none", "balanced", "5_1", "10_1", "30_1"]
-    outcomeType = [
-        # "All",
-        "PosNeg"]
-    classificationFunctionMap = {
-        # "All" : [None, 'balanced', {'Return_to_owner': 1, 'Adoption': 1, 'Transfer': 1, 'Euthanasia': 5, 'Died': 5}, {'Return_to_owner': 1, 'Adoption': 1, 'Transfer': 1, 'Euthanasia': 10, 'Died': 10}, {'Return_to_owner': 1, 'Adoption': 1, 'Transfer': 1, 'Euthanasia': 30, 'Died': 30}],
-        "PosNeg": [None, 'balanced', {'Dead': 5, 'Alive': 1}, {'Dead': 10, 'Alive': 1}, {'Dead': 30, 'Alive': 1}]}
-    extendedFeatureMap = {'primaryBreed': lambda instance: instance.getPrimaryBreed(),
-                          'secondaryBreed': lambda instance: instance.getSecondaryBreed(),
-                          'primaryColor': lambda instance: instance.getPrimaryColor(),
-                          'secondaryColor': lambda instance: instance.getSecondaryColor(),
-                          'primaryColorAddition': lambda instance: instance.getPrimaryColorAddition(),
-                          'secondaryColorAddition': lambda instance: instance.getSecondaryColorAddition()}
-    extendedFeatureCombinations = {
-        'allPrimaries': ['primaryBreed', 'primaryColor', 'primaryColorAddition'],
-        'allExtendedFeatures': ['primaryBreed', 'primaryColor', 'primaryColorAddition', 'secondaryBreed',
-                                'secondaryColor', 'secondaryColorAddition'],
-        'allBreedsAndColors': ['primaryBreed', 'primaryColor', 'secondaryBreed', 'secondaryColor'],
-        'primaryBreedsAndColor': ['primaryBreed', 'primaryColor'],
-        'primaryBreed': ['primaryBreed'],
-        'primaryColor': ['primaryColor'],
-        'basic': []
-    }
+    chosenWeights = ["none", "balanced", "5_1", "10_1", "30_1"]
+
+    paramProvider = ClassifierParamProvider()
+    outcomeTypes = paramProvider.getOutComeTypes()
+    classificationWeightFunctionMap = paramProvider.getClassificationWeightFunctionMap()
+    extendedFeatureMap = paramProvider.getExtendedFeatureMap()
+    extendedFeatureCombinations = paramProvider.getExtendedFeatureCombinations()
+
     outcomeindex = 0
     for outcomeFunction in [
         # lambda instance: instance.getOutcome(),
         lambda instance: instance.getBinaryOutcome()]:
 
         nameindex = 0
-        for classificationWeight in classificationFunctionMap[outcomeType[outcomeindex]]:
+        for classificationWeight in classificationWeightFunctionMap[outcomeTypes[outcomeindex]]:
             for maxDepth in range(1, 5):
                 classifiers = {
                     # "decisionTree" : tree.DecisionTreeClassifier(class_weight=classificationWeight),
-                    "randomForest": ensemble.RandomForestClassifier(class_weight=classificationWeight, max_depth=maxDepth),
+                    "randomForest": ensemble.RandomForestClassifier(class_weight=classificationWeight,
+                                                                    max_depth=maxDepth),
                     "dummyClassifier": dummy.DummyClassifier()}
                 for classifierKey, classifierValue in classifiers.items():
                     for extendedFeatureCombinationKey, extendedFeatureCombinationValue in extendedFeatureCombinations.items():
                         print(
                             str(classifierKey) + " " + str(maxDepth) + " " + extendedFeatureCombinationKey + " " + str(
-                                outcomeType[outcomeindex]) + " " + str(reportnames[nameindex]))
+                                outcomeTypes[outcomeindex]) + " " + str(chosenWeights[nameindex]))
                         modelTrain = ModelTrainer(trainSet)
                         model = modelTrain.train(classifierValue, outcomeFunction,
                                                  [extendedFeatureMap[feature] for feature in
@@ -95,8 +82,8 @@ def generateReports():
                             predictedOutcomes.append(model.predict(testInstance))
 
                         reportFile = open('../reports/' + classifierKey + '_maxDepth' + str(
-                            maxDepth) + "_" + extendedFeatureCombinationKey + '_' + outcomeType[outcomeindex] + '_' +
-                                          reportnames[nameindex] + '.txt', 'w')
+                            maxDepth) + "_" + extendedFeatureCombinationKey + '_' + outcomeTypes[outcomeindex] + '_' +
+                                          chosenWeights[nameindex] + '.txt', 'w')
                         reportFile.write(metrics.classification_report(trueOutcomes, predictedOutcomes) + "\n")
                         reportFile.write(
                             "accuracy: " + str(metrics.accuracy_score(trueOutcomes, predictedOutcomes)) + "\n")
