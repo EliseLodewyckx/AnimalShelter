@@ -1,0 +1,17 @@
+OutcomeType;AnimalType;SexuponOutcome;Sex;Intact;AgeNumber;AgeType;AgeTypeNormalized;AgeInYears;Breed 1;Breed 2;Mix;Primary Color;ColorAddition1;Secondary Color;ColorAddition2
+Return_to_owner;Dog;Neutered Male;Male;Non-intact;1;year;year;1;Shetland Sheepdog ;;TRUE;Brown;;White;
+Euthanasia;Cat;Spayed Female;Female;Non-intact;1;year;year;1;Domestic Shorthair ;;TRUE;Cream;Tabby;;
+Adoption;Dog;Neutered Male;Male;Non-intact;2;years;year;2;Pit Bull ;;TRUE;Blue;;White;
+Transfer;Cat;Intact Male;Male;Intact;3;weeks;week;0.057692308;Domestic Shorthair ;;TRUE;Blue;Cream;;
+Transfer;Dog;Neutered Male;Male;Non-intact;2;years;year;2;Lhasa Apso;Miniature Poodle;FALSE;Tan;;;
+Transfer;Dog;Intact Female;Female;Intact;1;month;month;0.083333333;Cairn Terrier;Chihuahua Shorthair;FALSE;Black;;Tan;
+Transfer;Cat;Intact Male;Male;Intact;3;weeks;week;0.057692308;Domestic Shorthair ;;TRUE;Blue;Tabby;;
+Transfer;Cat;Unknown;Unknown;Unknown;3;weeks;week;0.057692308;Domestic Shorthair ;;TRUE;Brown;Tabby;;
+Adoption;Dog;Spayed Female;Female;Non-intact;5;months;month;0.416666667;American Pit Bull Terrier ;;TRUE;Red;;White;
+Adoption;Dog;Spayed Female;Female;Non-intact;1;year;year;1;Cairn Terrier;;FALSE;White;;;
+Transfer;Cat;Unknown;Unknown;Unknown;2;years;year;2;Domestic Shorthair ;;TRUE;Black;;;
+Adoption;Dog;Spayed Female;Female;Non-intact;2;years;year;2;Miniature Schnauzer ;;TRUE;Silver;;;
+Adoption;Dog;Neutered Male;Male;Non-intact;4;years;year;4;Pit Bull ;;TRUE;Brown;;;
+Return_to_owner;Dog;Neutered Male;Male;Non-intact;2;years;year;2;Yorkshire Terrier ;;TRUE;Black;;Red;
+Return_to_owner;Dog;Neutered Male;Male;Non-intact;1;year;year;1;Great Pyrenees ;;TRUE;White;;Cream;
+Adoption;Cat;Neutered Male;Male;Non-intact;3;months;month;0.25;Domestic Shorthair ;;TRUE;Orange;Tabby;White;

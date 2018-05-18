@@ -1,3 +1,7 @@
+from sklearn import dummy
+from sklearn import ensemble
+
+
 class ClassifierParamProvider:
     def __init__(self):
         self.outcomeType = [
@@ -25,6 +29,10 @@ class ClassifierParamProvider:
             'basic': []
         }
 
+        self.outComeFunctions = [
+            # lambda instance: instance.getOutcome(),
+            lambda instance: instance.getBinaryOutcome()]
+
     def getOutComeTypes(self):
         return self.outcomeType
 
@@ -36,3 +44,14 @@ class ClassifierParamProvider:
 
     def getExtendedFeatureCombinations(self):
         return self.extendedFeatureCombinations
+
+    # test this  + getClassifiers
+    def getOutcomeFunctions(self):
+        return self.outComeFunctions
+
+    def getClassifiers(self, maxDepth, classificationWeight):
+        return {
+            # "decisionTree" : tree.DecisionTreeClassifier(class_weight=classificationWeight),
+            "randomForest": ensemble.RandomForestClassifier(class_weight=classificationWeight,
+                                                            max_depth=maxDepth),
+            "dummyClassifier": dummy.DummyClassifier()}
