@@ -33,6 +33,10 @@ class ClassifierParamProvider:
             # lambda instance: instance.getOutcome(),
             lambda instance: instance.getBinaryOutcome()]
 
+        self.chosenWeights = ["none", "balanced", "5_1", "10_1", "30_1"]
+
+        self.maxDepthRange = range(1,5)
+
     def getOutComeTypes(self):
         return self.outcomeType
 
@@ -55,3 +59,9 @@ class ClassifierParamProvider:
             "randomForest": ensemble.RandomForestClassifier(class_weight=classificationWeight,
                                                             max_depth=maxDepth),
             "dummyClassifier": dummy.DummyClassifier()}
+
+    def getChosenWeights(self):
+        return self.chosenWeights
+
+    def getMaxDepthRange(self):
+        return self.maxDepthRange

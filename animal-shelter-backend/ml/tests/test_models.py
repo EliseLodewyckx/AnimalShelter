@@ -35,35 +35,23 @@ class ClassifierParamsProviderTest(unittest.TestCase):
 
         os.remove(self.report_name + ".txt")
 
-    ## too many files are generated, look for reason + write loop to assert files
     def test_generateReport(self):
         paramProvider = ClassifierParamProvider()
 
+        paramProvider.getChosenWeights = MagicMock(return_value=["balanced"])
         paramProvider.getOutComeTypes = MagicMock(return_value=["PosNeg"])
         paramProvider.getClassificationWeightFunctionMap = MagicMock(return_value={"PosNeg": ['balanced']})
         paramProvider.getExtendedFeatureMap = MagicMock(
             return_value={'primaryBreed': lambda instance: instance.getPrimaryBreed()})
         paramProvider.getExtendedFeatureCombinations = MagicMock(return_value={'primaryBreed': ['primaryBreed']})
         paramProvider.getClassifiers = MagicMock(return_value={"dummyClassifier": dummy.DummyClassifier()})
+        paramProvider.getMaxDepthRange = MagicMock(return_value= range(1,2))
 
         reportPath = "reports/"
-        # generateReports("./data/first_items_from_train_data_to_test.csv", reportPath)
+        generateReports("./data/first_items_from_train_data_to_test.csv", reportPath, paramProvider)
 
-        # self.assertFilesAreGenerated(reportPath)
-        # self.removeGeneratedFiles(reportPath)
-
-    def assertFilesAreGenerated(self, reportPath):
-        print("This should assert if the files are generated")
-        # self.assertTrue(os.path.exists(reportPath + "dummyClassifier_maxDepth1_primaryBreed_PosNeg_balanced.txt"))
-        # self.assertTrue(os.path.exists(reportPath + "dummyClassifier_maxDepth2_primaryBreed_PosNeg_balanced.txt.txt"))
-        # self.assertTrue(os.path.exists(reportPath + "dummyClassifier_maxDepth3_primaryBreed_PosNeg_balanced.txt.txt.txt"))
-        # self.assertTrue(os.path.exists(reportPath + "dummyClassifier_maxDepth4_primaryBreed_PosNeg_balanced.txt.txt.txt"))
-        # self.assertTrue(os.path.exists(reportPath + "dummyClassifier_maxDepth5_primaryBreed_PosNeg_balanced.txt.txt.txt"))
-
-
-        ## look for tests to verify model is trained (seperate tests) + create_and_test_model test
-        ## verify that the right amount of files with the right name are provided
-
-    def removeGeneratedFiles(self, reportPath):
+        self.assertTrue(os.path.exists(reportPath + "dummyClassifier_maxDepth1_primaryBreed_PosNeg_balanced.txt"))
+        self.assertEqual(len(os.listdir(reportPath)), 1)
         os.remove(reportPath + "dummyClassifier_maxDepth1_primaryBreed_PosNeg_balanced.txt")
-        print("Something should be done here")
+        self.assertFalse(os.listdir(reportPath))
+

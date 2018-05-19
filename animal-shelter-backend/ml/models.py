@@ -40,12 +40,11 @@ class Model(object):
         pickle.dump(self.tree, open(filename, 'wb'))
 
 
-def generateReports(csv_train_data, reportPath):
+def generateReports(csv_train_data, reportPath, paramProvider):
     instances = fromCsv.readCsv(csv_train_data)
     trainSet, testSet = split(instances, 0.7)
-    chosenWeights = ["none", "balanced", "5_1", "10_1", "30_1"]
 
-    paramProvider = ClassifierParamProvider()
+    chosenWeights = paramProvider.getChosenWeights()
     outcomeTypes = paramProvider.getOutComeTypes()
     classificationWeightFunctionMap = paramProvider.getClassificationWeightFunctionMap()
     extendedFeatureMap = paramProvider.getExtendedFeatureMap()
@@ -56,7 +55,7 @@ def generateReports(csv_train_data, reportPath):
     for outcomeFunction in paramProvider.getOutcomeFunctions():
         nameindex = 0
         for classificationWeight in classificationWeightFunctionMap[outcomeTypes[outcomeindex]]:
-            for maxDepth in range(1, 5):
+            for maxDepth in paramProvider.getMaxDepthRange():
                 classifiers = paramProvider.getClassifiers(maxDepth, classificationWeight)
                 for classifierKey, classifierValue in classifiers.items():
                     create_and_test_model(reportPath, chosenWeights, classifierKey, classifierValue,
@@ -129,4 +128,4 @@ def generateModel():
 
 if __name__ == '__main__':
     # generateModel()
-    generateReports('../../data/train_preprocessed_split_mix_sex_color_breed.csv', "../reports/")
+    generateReports('../../data/train_preprocessed_split_mix_sex_color_breed.csv', "../reports/", ClassifierParamProvider())

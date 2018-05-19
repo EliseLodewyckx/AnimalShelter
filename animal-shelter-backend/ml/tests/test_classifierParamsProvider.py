@@ -2,6 +2,7 @@ import unittest
 
 from ml.classifierParamsProvider import ClassifierParamProvider
 
+
 class ClassifierParamsProviderTest(unittest.TestCase):
     def setUp(self):
         self.paramProvider = ClassifierParamProvider()
@@ -55,3 +56,10 @@ class ClassifierParamsProviderTest(unittest.TestCase):
         result = self.paramProvider.getClassifiers(5, 1)
         self.assertCountEqual(result.keys(), ["randomForest", "dummyClassifier"])
 
+    def test_getChosenWeights(self):
+        result = self.paramProvider.getChosenWeights()
+        self.assertCountEqual(result, ["none", "balanced", "5_1", "10_1", "30_1"])
+
+    def test_getMaxDepthRange(self):
+        result = self.paramProvider.getMaxDepthRange()
+        self.assertEqual(result, range(1,5))
